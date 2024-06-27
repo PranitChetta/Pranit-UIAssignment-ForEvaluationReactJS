@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import RewardsByMonths from "./RewardsByMonths";
+import "@testing-library/jest-dom";
+import RewardsByMonths from "../components/RewardsByMonths";
 
 describe("RewardsByMonths component", () => {
   const mockTransactionData = {
@@ -12,22 +12,16 @@ describe("RewardsByMonths component", () => {
         numTransactions: 5,
         points: 150,
         custid: 1,
+        monthNumber: 1,
       },
     ],
     pointsPerTransaction: [
       {
         custid: 1,
-        month: "January",
+        month: 1,
         transactionDt: "2023-01-15",
         amt: 100,
         points: 30,
-      },
-      {
-        custid: 1,
-        month: "February",
-        transactionDt: "2023-02-10",
-        amt: 150,
-        points: 45,
       },
     ],
   };
@@ -53,11 +47,12 @@ describe("RewardsByMonths component", () => {
   });
 
   test("renders transaction details correctly", () => {
-    const { getByText } = render(
+    const { getByTestId } = render(
       <RewardsByMonths transactionData={mockTransactionData} />,
     );
-    expect(
-      getByText("Transaction Date: 2023-01-15 - $100 - Points: 30"),
-    ).toBeInTheDocument();
+    const transactionRow = getByTestId("transaction-row");
+    expect(transactionRow).toHaveTextContent(
+      "Transaction Date: 2023-01-15 - $100 - Points: 30",
+    );
   });
 });

@@ -3,9 +3,9 @@ import RewardsByMonths from "./RewardsByMonths";
 import CustomerTotals from "./CustomerTotals";
 import "../styles.css";
 import { transactionCalculator, API } from "../utils";
+
 function App() {
   const [transactionData, setTransactionData] = useState(null);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,13 +15,12 @@ function App() {
       try {
         const response = await fetch(API, { signal }); // Pass the signal to fetch
         const data = await response.json();
-        console.log({ data });
         const results = transactionCalculator(data);
+        console.log({ data });
         setTransactionData(results);
       } catch (error) {
         if (error.name !== "AbortError") {
-          console.error("Error fetching data:", error);
-          setError(error);
+          alert("Error fetching data:", error);
         }
       }
     };
@@ -33,12 +32,9 @@ function App() {
       controller.abort();
     };
   }, []);
+
   if (transactionData == null) {
     return <h2>Loading...</h2>;
-  }
-
-  if (error) {
-    return <h2>Something went wrong while fetching data! Error: {error} </h2>;
   }
 
   return (

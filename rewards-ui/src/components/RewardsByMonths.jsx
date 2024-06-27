@@ -31,11 +31,14 @@ const RewardsByMonths = ({ transactionData }) => (
                         row.monthNumber === tableRow.month,
                     )
                     .map((transaction, idx) => (
-                      <div key={idx}>
+                      <div key={idx} data-testid="transaction-row">
                         <strong>Transaction Date:</strong>{" "}
-                        {transaction.transactionDt} - <strong>$</strong>
-                        {transaction.amt} - <strong>Points: </strong>{" "}
-                        {transaction.points}
+                        <span>{transaction.transactionDt}</span> -{" "}
+                        <strong>$</strong>
+                        {transaction.amt} -{" "}
+                        <span>
+                          <strong>Points: </strong> {transaction.points}
+                        </span>
                       </div>
                     ))}
                 </div>

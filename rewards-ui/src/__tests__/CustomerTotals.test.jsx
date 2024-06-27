@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
-import CustomerTotals from "./CustomerTotals";
+import "@testing-library/jest-dom";
+import CustomerTotals from "../components/CustomerTotals";
 
 describe("CustomerTotals component", () => {
   const mockData = {
